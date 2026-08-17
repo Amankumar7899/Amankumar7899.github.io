@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aman Kumar | Backend Engineer</title>
+    <!-- Modern Tech Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #030303;
+            --surface-color: rgba(255, 255, 255, 0.02);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --accent: #10b981; /* Emerald Green */
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --accent-secondary: #3b82f6; /* Subtle blue for gradients */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Ambient Breathing Glows */
+        .glow-1, .glow-2 {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            animation: drift 10s infinite alternate ease-in-out;
+        }
+
+        .glow-1 {
+            top: -10%;
+            left: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+        }
+
+        .glow-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+            animation-delay: -5s;
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 40px) scale(1.1); }
+        }
+
+        /* Navigation */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(3, 3, 3, 0.6);
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        nav h1 span {
+            color: var(--accent);
+        }
+
+        nav .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        section {
+            padding: 140px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .hero h2 {
+            font-size: clamp(3.5rem, 6vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        /* Animated Gradient Text */
+        .gradient-text {
+            background: linear-gradient(to right, #ffffff, #a1a1aa, #10b981, #ffffff);
+            background-size: 300% auto;
+            color: #fff;
+            background-clip: text;
+            text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to { background-position: 300% center; }
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            background: var(--text-primary);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            box-shadow: none;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .section-title span {
+            color: var(--accent);
+        }
+
+        /* Glassmorphism Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            color: #888;
+            font-weight: 600;
+            letter-spacing: 1px;
+            word-spacing: 8px;
+        }
+
+        /* Skills Tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+            background: var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .cert-tag {
+            border-color: rgba(16, 185, 129, 0.2);
+            color: #ddd;
+        }
+        
+        .cert-tag i {
+            color: #fbbf24;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 5%;
+            border-top: 1px solid var(--border-color);
+            margin-top: 5rem;
+        }
+
+        footer h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .footer-text {
+            color: #555;
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 1.2rem 5%; }
+            nav .nav-links { display: none; } /* Kept simple for mobile */
+            section { padding: 120px 5% 60px; }
+            .hero h2 { font-size: 2.8rem; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cinematic Background Glows -->
+    <div class="glow-1"></div>
+    <div class="glow-2"></div>
+
+    <nav>
+        <h1 onclick="window.scrollTo(0,0)">Aman<span>.</span>py</h1>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#projects">Architectures</a>
+            <a href="#skills">Skills</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero reveal" id="about">
+        <div class="status-pill">
+            <span class="status-dot"></span> Available for Backend Roles
+        </div>
+        <h2>Architecting the<br><span class="gradient-text">Unseen Engines.</span></h2>
+        <p>I build the engines that power modern applications. Based in New Delhi, I specialize in Python, Flask, and PostgreSQL—architecting secure, resilient backend systems that bridge the gap between raw data and seamless user experiences.</p>
+        <div class="btn-group">
+            <a href="https://www.linkedin.com/in/aman-kumar-971538232" class="btn" target="_blank">
+                <i class="fab fa-linkedin"></i> Connect on LinkedIn
+            </a>
+            <a href="https://github.com/Amankumar7899" class="btn btn-outline" target="_blank">
+                <i class="fab fa-github"></i> View GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title reveal">Flagship <span>Architectures</span></h2>
+        <div class="grid">
+            <div class="card reveal">
+                <i class="fas fa-server"></i>
+                <h3>High-Scale E-Commerce Engine</h3>
+                <p>Engineered a comprehensive backend architecture to manage complex product matrices, transient shopping cart cache logic, and financial order checkout processing workflows.</p>
+                <div class="tech-stack">PYTHON FLASK POSTGRESQL SQLALCHEMY</div>
+            </div>
+            
+            <div class="card reveal">
+                <i class="fas fa-network-wired"></i>
+                <h3>Large-Scale LMS API</h3>
+                <p>Architected a dynamic backend to manage course inventories and real-time student progress logging. Built structured test evaluation modules with secure multi-tier admin access controls.</p>
+                <div class="tech-stack">PYTHON FLASK POSTGRESQL REST-APIs</div>
+            </div>
+
+            <div class="card reveal">
+                <i class="fas fa-shield-halved"></i>
+                <h3>Enterprise CRM Backend</h3>
+                <p>Developed a secure enterprise REST API featuring multi-tenant data isolation boundaries, user self-registration endpoints, and cryptographic JWT generation algorithms.</p>
+                <div class="tech-stack">PYTHON FLASK JWT-AUTH PYTEST</div>
+            </div>
+
+            <div class="card reveal">
+                <i class="fas fa-database"></i>
+                <h3>Database Migration Protocol</h3>
+                <p>Built menu-driven data processing engines utilizing dictionaries and successfully executed an infrastructure migration from embedded SQLite into a standalone PostgreSQL cluster.</p>
+                <div class="tech-stack">PYTHON SQLITE JSON CSV</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Certifications Section -->
+    <section id="skills">
+        <h2 class="section-title reveal">Technical <span>Arsenal</span></h2>
+        <div class="skills-container reveal">
+            <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+            <div class="skill-tag"><i class="fas fa-code-branch"></i> Git / GitHub</div>
+            <div class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</div>
+            <div class="skill-tag"><i class="fas fa-server"></i> SQLite</div>
+            <div class="skill-tag"><i class="fas fa-pepper-hot"></i> Flask</div>
+            <div class="skill-tag"><i class="fas fa-table"></i> SQLAlchemy (ORM)</div>
+            <div class="skill-tag"><i class="fas fa-exchange-alt"></i> RESTful APIs</div>
+            <div class="skill-tag"><i class="fas fa-cubes"></i> Microservices</div>
+            <div class="skill-tag"><i class="fas fa-key"></i> JWT Authentication</div>
+            <div class="skill-tag"><i class="fas fa-vial"></i> Pytest (TDD)</div>
+            <div class="skill-tag"><i class="fab fa-js"></i> JavaScript</div>
+            <div class="skill-tag"><i class="fab fa-linux"></i> Linux / Unix</div>
+        </div>
+
+        <h2 class="section-title reveal" style="margin-top: 4rem;">Verified <span>Credentials</span></h2>
+        <div class="skills-container reveal">
+            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: Python (Basic & Intermediate)</div>
+            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: SQL</div>
+            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: CSS</div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer class="reveal">
+        <h3>Let's build something scalable.</h3>
+        <p>Currently seeking opportunities as a Backend Software Engineer.</p>
+        <a href="mailto:your.email@gmail.com" class="btn">
+            <i class="fas fa-envelope"></i> Get in Touch
+        </a>
+        <p class="footer-text">© 2026 Aman Kumar. Designed and engineered from scratch.</p>
+    </footer>
+
+    <!-- Intersection Observer for Smooth Reveal Animations -->
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 50; // Triggers slightly earlier for smoother feel
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load with slight delay
+        setTimeout(reveal, 100);
+    </script>
+</body>
+</html>
