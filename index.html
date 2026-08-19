@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aman Kumar — Backend Engineer based in New Delhi. Specializes in Python, Flask, and relational databases for secure, resilient backend systems.">
+    <meta name="theme-color" content="#030303">
+    <meta name="author" content="Aman Kumar">
     <title>Aman Kumar | Backend Engineer</title>
-    <!-- Modern Tech Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <!-- Modern Tech Fonts (with system font fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
     <style>
         :root {
             --bg-color: #030303;
@@ -16,12 +22,13 @@
             --border-color: rgba(255, 255, 255, 0.08);
             --text-primary: #ffffff;
             --text-secondary: #a1a1aa;
-            --accent: #10b981; /* Emerald Green */
+            --text-muted: #9ca3af;
+            --accent: #10b981;
             --accent-glow: rgba(16, 185, 129, 0.2);
-            --accent-secondary: #3b82f6; /* Subtle blue for gradients */
+            --accent-secondary: #3b82f6;
         }
 
-        * {
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -34,24 +41,54 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             overflow-x: hidden;
             line-height: 1.7;
+            position: relative;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         h1, h2, h3 {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
 
-        /* Ambient Breathing Glows */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 8px;
+            background: var(--accent);
+            color: var(--bg-color);
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            z-index: 200;
+            text-decoration: none;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus {
+            top: 12px;
+            outline: 2px solid var(--text-primary);
+            outline-offset: 2px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
         .glow-1, .glow-2 {
             position: fixed;
             border-radius: 50%;
-            z-index: -1;
+            z-index: 0;
             filter: blur(80px);
             animation: drift 10s infinite alternate ease-in-out;
+            pointer-events: none;
         }
-
         .glow-1 {
             top: -10%;
             left: -10%;
@@ -59,7 +96,6 @@
             height: 40vw;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
         }
-
         .glow-2 {
             bottom: -20%;
             right: -10%;
@@ -68,15 +104,13 @@
             background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
             animation-delay: -5s;
         }
-
         @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
+            0%   { transform: translate(0, 0) scale(1); }
             100% { transform: translate(30px, 40px) scale(1.1); }
         }
 
-        /* Navigation */
         nav {
-            padding: 1.5rem 5%;
+            padding: 1.25rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -85,33 +119,51 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             position: fixed;
             top: 0;
-            width: 100%;
+            left: 0;
+            right: 0;
             z-index: 100;
-            background: rgba(3, 3, 3, 0.6);
+            background: rgba(3, 3, 3, 0.75);
+            flex-wrap: wrap;
+            gap: 0.75rem;
         }
-
-        nav h1 {
+        .nav-logo {
             font-size: 1.5rem;
             font-weight: 800;
             letter-spacing: 1px;
-            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            display: inline-block;
+            padding: 0.5rem 0;
+            min-height: 44px;
+            line-height: 1.5;
         }
+        .nav-logo span { color: var(--accent); }
 
-        nav h1 span {
-            color: var(--accent);
+        .nav-links {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
-
-        nav .nav-links a {
+        .nav-links li { list-style: none; }
+        .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            margin-left: 2.5rem;
             font-size: 0.95rem;
             font-weight: 500;
             transition: color 0.3s ease;
+            padding: 0.5rem 0.25rem;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
         }
+        .nav-links a:hover { color: var(--text-primary); }
 
-        nav .nav-links a:hover {
-            color: var(--text-primary);
+        main, section, footer {
+            position: relative;
+            z-index: 1;
         }
 
         section {
@@ -120,7 +172,6 @@
             margin: 0 auto;
         }
 
-        /* Hero Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -151,37 +202,33 @@
             border-radius: 50%;
             box-shadow: 0 0 10px var(--accent);
             animation: pulse 2s infinite;
+            display: inline-block;
         }
-
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
-            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            0%   { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+            70%  { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
         .hero h2 {
-            font-size: clamp(3.5rem, 6vw, 6rem);
+            font-size: clamp(2.5rem, 7vw, 6rem);
             font-weight: 900;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             letter-spacing: -1px;
         }
 
-        /* Animated Gradient Text */
         .gradient-text {
             background: linear-gradient(to right, #ffffff, #a1a1aa, #10b981, #ffffff);
             background-size: 300% auto;
             color: #fff;
             background-clip: text;
-            text-fill-color: transparent;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 5s linear infinite;
+            display: inline-block;
         }
-
-        @keyframes shine {
-            to { background-position: 300% center; }
-        }
+        @keyframes shine { to { background-position: 300% center; } }
 
         .hero p {
             font-size: 1.25rem;
@@ -196,7 +243,6 @@
             gap: 1.5rem;
             flex-wrap: wrap;
         }
-
         .btn {
             padding: 14px 32px;
             background: var(--text-primary);
@@ -205,29 +251,27 @@
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Outfit', sans-serif;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            border: 1px solid transparent;
+            min-height: 44px;
         }
-
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15);
         }
-
         .btn-outline {
             background: transparent;
             color: var(--text-primary);
-            border: 1px solid var(--border-color);
+            border-color: var(--border-color);
         }
-
         .btn-outline:hover {
             border-color: var(--text-primary);
             box-shadow: none;
         }
 
-        /* Section Titles */
         .section-title {
             font-size: 3rem;
             margin-bottom: 3rem;
@@ -235,15 +279,15 @@
             color: var(--text-primary);
             letter-spacing: -0.5px;
         }
+        .section-title span { color: var(--accent); }
 
-        .section-title span {
-            color: var(--accent);
+        .credentials-title {
+            margin-top: 4rem;
         }
 
-        /* Glassmorphism Cards */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
             gap: 2rem;
         }
 
@@ -254,13 +298,15 @@
             -webkit-backdrop-filter: blur(12px);
             padding: 2.5rem;
             border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                        border-color 0.4s ease,
+                        box-shadow 0.4s ease,
+                        background-color 0.4s ease;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
         }
-
         .card::before {
             content: '';
             position: absolute;
@@ -270,22 +316,19 @@
             opacity: 0;
             transition: opacity 0.4s ease;
         }
-
         .card:hover {
             transform: translateY(-10px);
             border-color: rgba(16, 185, 129, 0.3);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow);
             background: rgba(255, 255, 255, 0.04);
         }
+        .card:hover::before { opacity: 1; }
 
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card i {
+        .card-icon {
             font-size: 2rem;
             color: var(--accent);
             margin-bottom: 1.5rem;
+            display: block;
         }
 
         .card h3 {
@@ -298,26 +341,43 @@
         .card p {
             color: var(--text-secondary);
             font-size: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             flex-grow: 1;
         }
 
         .tech-stack {
             font-family: 'Outfit', sans-serif;
             font-size: 0.8rem;
-            color: #888;
+            color: var(--text-muted);
             font-weight: 600;
             letter-spacing: 1px;
             word-spacing: 8px;
+            margin-bottom: 1.2rem;
         }
 
-        /* Skills Tags */
+        .card-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            width: fit-content;
+            min-height: 44px;
+            padding: 0.25rem 0;
+        }
+        .card-link:hover {
+            color: var(--text-primary);
+            transform: translateX(5px);
+        }
+
         .skills-container {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
         }
-
         .skill-tag {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
@@ -326,194 +386,305 @@
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--text-secondary);
-            transition: all 0.3s ease;
-            display: flex;
+            transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            cursor: default;
         }
-
         .skill-tag:hover {
             border-color: var(--accent);
             color: var(--text-primary);
             background: var(--accent-glow);
             transform: translateY(-2px);
         }
-
         .cert-tag {
             border-color: rgba(16, 185, 129, 0.2);
             color: #ddd;
         }
-        
-        .cert-tag i {
-            color: #fbbf24;
-        }
+        .cert-tag i { color: #fbbf24; }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 4rem 5%;
             border-top: 1px solid var(--border-color);
             margin-top: 5rem;
         }
-
         footer h3 {
             font-size: 2rem;
             margin-bottom: 1rem;
         }
-        
         footer p {
             color: var(--text-secondary);
             margin-bottom: 2rem;
         }
-
         .footer-text {
-            color: #555;
+            color: var(--text-muted);
             font-size: 0.9rem;
             margin-top: 4rem;
         }
 
-        /* Scroll Animations */
-        .reveal {
+        .js-enabled .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+            transition: opacity 0.8s cubic-bezier(0.5, 0, 0, 1),
+                        transform 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-
-        .reveal.active {
+        .js-enabled .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Responsive */
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .js-enabled .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .glow-1, .glow-2, .status-dot, .gradient-text {
+                animation: none !important;
+            }
+            .card:hover, .btn:hover, .skill-tag:hover, .card-link:hover {
+                transform: none !important;
+            }
+        }
+
         @media (max-width: 768px) {
-            nav { padding: 1.2rem 5%; }
-            nav .nav-links { display: none; } /* Kept simple for mobile */
-            section { padding: 120px 5% 60px; }
-            .hero h2 { font-size: 2.8rem; }
-            .btn-group { flex-direction: column; width: 100%; }
-            .btn { width: 100%; justify-content: center; }
+            nav {
+                padding: 1rem 5%;
+            }
+            .nav-links {
+                gap: 1.25rem;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            section {
+                padding: 110px 5% 60px;
+            }
+            .hero h2 {
+                font-size: clamp(2.25rem, 9vw, 3.5rem);
+            }
+            .section-title {
+                font-size: 2.25rem;
+            }
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .nav-links {
+                gap: 0.9rem;
+            }
+            .nav-logo {
+                font-size: 1.25rem;
+            }
+            section {
+                padding: 100px 4% 50px;
+            }
+            .hero h2 {
+                font-size: 2.1rem;
+            }
+            .section-title {
+                font-size: 1.85rem;
+                margin-bottom: 2rem;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cinematic Background Glows -->
-    <div class="glow-1"></div>
-    <div class="glow-2"></div>
+    <a href="#about" class="skip-link">Skip to main content</a>
 
-    <nav>
-        <h1 onclick="window.scrollTo(0,0)">Aman<span>.</span>py</h1>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#projects">Architectures</a>
-            <a href="#skills">Skills</a>
-        </div>
+    <div class="glow-1" aria-hidden="true"></div>
+    <div class="glow-2" aria-hidden="true"></div>
+
+    <nav aria-label="Main navigation">
+        <a href="#about" class="nav-logo" aria-label="Aman Kumar — home">Aman<span>.</span>py</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Architectures</a></li>
+            <li><a href="#skills">Skills</a></li>
+        </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero reveal" id="about">
-        <div class="status-pill">
-            <span class="status-dot"></span> Available for Backend Roles
-        </div>
-        <h2>Architecting the<br><span class="gradient-text">Unseen Engines.</span></h2>
-        <p>I build the engines that power modern applications. Based in New Delhi, I specialize in Python, Flask, and PostgreSQL—architecting secure, resilient backend systems that bridge the gap between raw data and seamless user experiences.</p>
-        <div class="btn-group">
-            <a href="https://www.linkedin.com/in/aman-kumar-971538232" class="btn" target="_blank">
-                <i class="fab fa-linkedin"></i> Connect on LinkedIn
-            </a>
-            <a href="https://github.com/Amankumar7899" class="btn btn-outline" target="_blank">
-                <i class="fab fa-github"></i> View GitHub
-            </a>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2 class="section-title reveal">Flagship <span>Architectures</span></h2>
-        <div class="grid">
-            <div class="card reveal">
-                <i class="fas fa-server"></i>
-                <h3>High-Scale E-Commerce Engine</h3>
-                <p>Engineered a comprehensive backend architecture to manage complex product matrices, transient shopping cart cache logic, and financial order checkout processing workflows.</p>
-                <div class="tech-stack">PYTHON FLASK POSTGRESQL SQLALCHEMY</div>
+    <main>
+        <section class="hero reveal" id="about">
+            <div class="status-pill">
+                <span class="status-dot" aria-hidden="true"></span> Available for Backend Roles
             </div>
-            
-            <div class="card reveal">
-                <i class="fas fa-network-wired"></i>
-                <h3>Large-Scale LMS API</h3>
-                <p>Architected a dynamic backend to manage course inventories and real-time student progress logging. Built structured test evaluation modules with secure multi-tier admin access controls.</p>
-                <div class="tech-stack">PYTHON FLASK POSTGRESQL REST-APIs</div>
+            <h2>Architecting the<br><span class="gradient-text">Unseen Engines.</span></h2>
+            <p>I build the engines that power modern applications. Based in New Delhi, I specialize in Python, Flask, and relational databases—architecting secure, resilient backend systems that bridge the gap between raw data and seamless user experiences.</p>
+            <div class="btn-group">
+                <a href="https://www.linkedin.com/in/aman-kumar-971538232" class="btn" target="_blank" rel="noopener noreferrer" aria-label="Connect with Aman Kumar on LinkedIn (opens in a new tab)">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i> Connect on LinkedIn
+                </a>
+                <a href="https://github.com/Amankumar7899" class="btn btn-outline" target="_blank" rel="noopener noreferrer" aria-label="View Aman Kumar's GitHub profile (opens in a new tab)">
+                    <i class="fab fa-github" aria-hidden="true"></i> View GitHub
+                </a>
+            </div>
+        </section>
+
+        <section id="projects" aria-labelledby="projects-title">
+            <h2 class="section-title reveal" id="projects-title">Flagship <span>Architectures</span></h2>
+            <div class="grid">
+
+                <article class="card reveal">
+                    <i class="fas fa-server card-icon" aria-hidden="true"></i>
+                    <h3>High-Scale E-Commerce Engine</h3>
+                    <p>Engineered a comprehensive backend architecture to manage complex product matrices, transient shopping cart cache logic, and financial order checkout processing workflows.</p>
+                    <div class="tech-stack">PYTHON FLASK POSTGRESQL SQLALCHEMY</div>
+                    <a href="https://github.com/Amankumar7899/ecommerce-engine" class="card-link" target="_blank" rel="noopener noreferrer" aria-label="View source code for High-Scale E-Commerce Engine on GitHub (opens in a new tab)">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Source Code
+                    </a>
+                </article>
+
+                <article class="card reveal">
+                    <i class="fas fa-network-wired card-icon" aria-hidden="true"></i>
+                    <h3>Large-Scale LMS API</h3>
+                    <p>Architected a dynamic backend to manage course inventories and real-time student progress logging. Built structured test evaluation modules with secure multi-tier admin access controls.</p>
+                    <div class="tech-stack">PYTHON FLASK POSTGRESQL CELERY JWT</div>
+                    <a href="https://github.com/Amankumar7899/lms-engine" class="card-link" target="_blank" rel="noopener noreferrer" aria-label="View source code for Large-Scale LMS API on GitHub (opens in a new tab)">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Source Code
+                    </a>
+                </article>
+
+                <article class="card reveal">
+                    <i class="fas fa-briefcase card-icon" aria-hidden="true"></i>
+                    <h3>Professional Job Portal Engine</h3>
+                    <p>Architected a role-based RESTful API supporting distinct employer and applicant workflows. Engineered secure multipart/form-data streams to handle, sanitize, and serve physical resume document uploads.</p>
+                    <div class="tech-stack">PYTHON FLASK SQLALCHEMY WERKZEUG JWT</div>
+                    <a href="https://github.com/Amankumar7899/jobportal" class="card-link" target="_blank" rel="noopener noreferrer" aria-label="View source code for Professional Job Portal Engine on GitHub (opens in a new tab)">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Source Code
+                    </a>
+                </article>
+
+                <article class="card reveal">
+                    <i class="fas fa-headset card-icon" aria-hidden="true"></i>
+                    <h3>Enterprise Support Ticketing API</h3>
+                    <p>Engineered an enterprise-grade customer support backend with a full ticket lifecycle state machine (Open ➔ In Progress ➔ Resolved), multi-tier RBAC (Customer, Agent, Admin), and secure screenshot attachments.</p>
+                    <div class="tech-stack">PYTHON FLASK SQLALCHEMY WERKZEUG JWT</div>
+                    <a href="https://github.com/Amankumar7899/helpdesk-api" class="card-link" target="_blank" rel="noopener noreferrer" aria-label="View source code for Enterprise Support Ticketing API on GitHub (opens in a new tab)">
+                        <i class="fab fa-github" aria-hidden="true"></i> View Source Code
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="skills" aria-labelledby="skills-title">
+            <h2 class="section-title reveal" id="skills-title">Technical <span>Arsenal</span></h2>
+            <div class="skills-container reveal">
+                <div class="skill-tag"><i class="fab fa-python" aria-hidden="true"></i> Python</div>
+                <div class="skill-tag"><i class="fas fa-code-branch" aria-hidden="true"></i> Git / GitHub</div>
+                <div class="skill-tag"><i class="fas fa-database" aria-hidden="true"></i> PostgreSQL</div>
+                <div class="skill-tag"><i class="fas fa-server" aria-hidden="true"></i> SQLite</div>
+                <div class="skill-tag"><i class="fas fa-pepper-hot" aria-hidden="true"></i> Flask</div>
+                <div class="skill-tag"><i class="fas fa-table" aria-hidden="true"></i> SQLAlchemy (ORM)</div>
+                <div class="skill-tag"><i class="fas fa-exchange-alt" aria-hidden="true"></i> RESTful APIs</div>
+                <div class="skill-tag"><i class="fas fa-cubes" aria-hidden="true"></i> Microservices</div>
+                <div class="skill-tag"><i class="fas fa-key" aria-hidden="true"></i> JWT Authentication</div>
+                <div class="skill-tag"><i class="fas fa-vial" aria-hidden="true"></i> Pytest (TDD)</div>
+                <div class="skill-tag"><i class="fab fa-js" aria-hidden="true"></i> JavaScript</div>
+                <div class="skill-tag"><i class="fab fa-linux" aria-hidden="true"></i> Linux / Unix</div>
             </div>
 
-            <div class="card reveal">
-                <i class="fas fa-shield-halved"></i>
-                <h3>Enterprise CRM Backend</h3>
-                <p>Developed a secure enterprise REST API featuring multi-tenant data isolation boundaries, user self-registration endpoints, and cryptographic JWT generation algorithms.</p>
-                <div class="tech-stack">PYTHON FLASK JWT-AUTH PYTEST</div>
+            <h2 class="section-title reveal credentials-title" id="credentials-title">Verified <span>Credentials</span></h2>
+            <div class="skills-container reveal" aria-labelledby="credentials-title">
+                <div class="skill-tag cert-tag"><i class="fas fa-trophy" aria-hidden="true"></i> HackerRank Certified: Python (Basic & Intermediate)</div>
+                <div class="skill-tag cert-tag"><i class="fas fa-trophy" aria-hidden="true"></i> HackerRank Certified: SQL</div>
+                <div class="skill-tag cert-tag"><i class="fas fa-trophy" aria-hidden="true"></i> HackerRank Certified: CSS</div>
             </div>
+        </section>
+    </main>
 
-            <div class="card reveal">
-                <i class="fas fa-database"></i>
-                <h3>Database Migration Protocol</h3>
-                <p>Built menu-driven data processing engines utilizing dictionaries and successfully executed an infrastructure migration from embedded SQLite into a standalone PostgreSQL cluster.</p>
-                <div class="tech-stack">PYTHON SQLITE JSON CSV</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills & Certifications Section -->
-    <section id="skills">
-        <h2 class="section-title reveal">Technical <span>Arsenal</span></h2>
-        <div class="skills-container reveal">
-            <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
-            <div class="skill-tag"><i class="fas fa-code-branch"></i> Git / GitHub</div>
-            <div class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</div>
-            <div class="skill-tag"><i class="fas fa-server"></i> SQLite</div>
-            <div class="skill-tag"><i class="fas fa-pepper-hot"></i> Flask</div>
-            <div class="skill-tag"><i class="fas fa-table"></i> SQLAlchemy (ORM)</div>
-            <div class="skill-tag"><i class="fas fa-exchange-alt"></i> RESTful APIs</div>
-            <div class="skill-tag"><i class="fas fa-cubes"></i> Microservices</div>
-            <div class="skill-tag"><i class="fas fa-key"></i> JWT Authentication</div>
-            <div class="skill-tag"><i class="fas fa-vial"></i> Pytest (TDD)</div>
-            <div class="skill-tag"><i class="fab fa-js"></i> JavaScript</div>
-            <div class="skill-tag"><i class="fab fa-linux"></i> Linux / Unix</div>
-        </div>
-
-        <h2 class="section-title reveal" style="margin-top: 4rem;">Verified <span>Credentials</span></h2>
-        <div class="skills-container reveal">
-            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: Python (Basic & Intermediate)</div>
-            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: SQL</div>
-            <div class="skill-tag cert-tag"><i class="fas fa-trophy"></i> HackerRank Certified: CSS</div>
-        </div>
-    </section>
-
-    <!-- Footer / Contact -->
-    <footer class="reveal">
+    <footer>
         <h3>Let's build something scalable.</h3>
         <p>Currently seeking opportunities as a Backend Software Engineer.</p>
-        <a href="mailto:your.email@gmail.com" class="btn">
-            <i class="fas fa-envelope"></i> Get in Touch
+        <a href="mailto:amankumar7899.work@gmail.com" class="btn" aria-label="Email Aman Kumar">
+            <i class="fas fa-envelope" aria-hidden="true"></i> Get in Touch
         </a>
         <p class="footer-text">© 2026 Aman Kumar. Designed and engineered from scratch.</p>
     </footer>
 
-    <!-- Intersection Observer for Smooth Reveal Animations -->
     <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 50; // Triggers slightly earlier for smoother feel
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+        (function () {
+            'use strict';
+
+            try {
+                document.documentElement.classList.add('js-enabled');
+            } catch (e) { }
+
+            var safetyReveal = function () {
+                try {
+                    var nodes = document.querySelectorAll('.reveal:not(.active)');
+                    for (var i = 0; i < nodes.length; i++) {
+                        nodes[i].classList.add('active');
+                    }
+                } catch (e) { }
+            };
+
+            window.setTimeout(safetyReveal, 1800);
+
+            var setupObserver = function () {
+                var reveals = document.querySelectorAll('.reveal');
+                if (!reveals.length) { return; }
+
+                if (!('IntersectionObserver' in window)) {
+                    safetyReveal();
+                    return;
                 }
+
+                try {
+                    var observer = new IntersectionObserver(function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, {
+                        threshold: 0.1,
+                        rootMargin: '0px 0px -40px 0px'
+                    });
+
+                    reveals.forEach(function (el) {
+                        observer.observe(el);
+                    });
+                } catch (err) {
+                    safetyReveal();
+                }
+            };
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', setupObserver);
+            } else {
+                setupObserver();
             }
-        }
-        window.addEventListener("scroll", reveal);
-        // Trigger once on load with slight delay
-        setTimeout(reveal, 100);
+
+            var currentTime = document.getElementById('currentTime');
+            if (currentTime) {
+                var updateClock = function () {
+                    try {
+                        currentTime.textContent = new Date().toLocaleTimeString();
+                    } catch (e) {
+                        currentTime.textContent = '';
+                    }
+                };
+                updateClock();
+                window.setInterval(updateClock, 1000);
+            }
+        })();
     </script>
 </body>
 </html>
